@@ -1,0 +1,11 @@
+{
+  "name": "SlideTakehome",
+  "packageManager": "yarn@3.2.3",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "uuid": "^8.3.2"
+  }
+}
