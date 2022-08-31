@@ -17,14 +17,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     ],\
     "dependencyTreeRoots": [\
       {\
-        "name": "SlideTakehome",\
+        "name": "FrontendTakehome",\
         "reference": "workspace:."\
       }\
     ],\
     "enableTopLevelFallback": true,\
     "ignorePatternData": "(^(?:\\\\.yarn\\\\/sdks(?:\\\\/(?!\\\\.{1,2}(?:\\\\/|$))(?:(?:(?!(?:^|\\\\/)\\\\.{1,2}(?:\\\\/|$)).)*?)|$))$)",\
     "fallbackExclusionList": [\
-      ["SlideTakehome", ["workspace:."]]\
+      ["FrontendTakehome", ["workspace:."]]\
     ],\
     "fallbackPool": [\
     ],\
@@ -39,11 +39,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT"\
         }]\
       ]],\
-      ["SlideTakehome", [\
+      ["FrontendTakehome", [\
         ["workspace:.", {\
           "packageLocation": "./",\
           "packageDependencies": [\
-            ["SlideTakehome", "workspace:."],\
+            ["FrontendTakehome", "workspace:."],\
             ["express", "npm:4.18.1"],\
             ["uuid", "npm:8.3.2"]\
           ],\
