@@ -2,6 +2,7 @@ const express = require("express");
 const { v4: uuid } = require('uuid');
 
 const app = express();
+app.use(express.json());
 
 let hasPurchased = false;
 let idemTokens = [];
@@ -9,7 +10,7 @@ let purchaseStatuses = {};
 
 app.get("/video/info", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
-    const responseJson = {
+    let responseJson = {
         status: "purchased",
         videoUrl: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4",
         title: "Big Buck Bunny",
@@ -31,7 +32,7 @@ app.get("/video/info", (req, res) => {
 
 app.post("/video/purchase", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
-    const reqJson = JSON.parse(req.body);
+    const reqJson = req.body;
     
     if (reqJson.pin !== 1234) {
         res.status(401).json({
@@ -50,6 +51,14 @@ app.post("/video/purchase", (req, res) => {
         return;
     }
 
+    if (reqJson.id !== "5379a5e1-5812-4654-ac7f-4f6d8e84e9d6") {
+        res.status(400).json({
+            status: "failed",
+            message: "Invalid media id"
+        })
+        return;
+    }
+
     // look up an existing purchase
     if (purchaseStatuses[token]) {
         if (purchaseStatuses[token] === "waiting") {
@@ -59,6 +68,7 @@ app.post("/video/purchase", (req, res) => {
             status: purchaseStatuses[token],
             message: ""
         });
+        return;
     }
 
     // or create a new one
@@ -67,6 +77,11 @@ app.post("/video/purchase", (req, res) => {
         purchaseStatuses[token] = "success";
         hasPurchased = true;
     }, 6000);
+
+    res.json({
+        status: "waiting",
+        message: ""
+    });
 })
 
 app.listen(5001, () => {
