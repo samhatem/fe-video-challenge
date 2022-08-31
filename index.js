@@ -32,6 +32,12 @@ app.get("/video/info", (req, res) => {
 
 app.post("/video/purchase", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
+
+    // 500 occasionally because why not
+    if (Math.random() < 0.05) {
+        throw new Error("Couldn't process request. Please try again");
+    }
+
     const reqJson = req.body;
     
     if (reqJson.pin !== 1234) {
